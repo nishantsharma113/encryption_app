@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import EncryptDecrypt from './components/EncryptDecrypt';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Encryption & Decryption App</h1>
+        <p>Secure your messages with powerful encryption algorithms</p>
       </header>
+      <main>
+        <EncryptDecrypt />
+      </main>
+      <footer>
+        <p>Created with React and CryptoJS</p>
+      </footer>
     </div>
   );
 }
