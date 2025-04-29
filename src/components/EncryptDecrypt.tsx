@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './EncryptDecrypt.css';
 
 
@@ -113,9 +115,24 @@ const EncryptDecrypt: React.FC = () => {
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(outputText).then(
       () => {
-        alert('Copied to clipboard!');
+        toast.success('Copied to clipboard!', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       },
       (err) => {
+        toast.error('Failed to copy to clipboard', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
         console.error('Could not copy text: ', err);
       }
     );
@@ -626,6 +643,7 @@ const EncryptDecrypt: React.FC = () => {
 
   return (
     <div className="crypto-container">
+      <ToastContainer />
       <h2>Text {mode === 'encrypt' ? 'Encryption' : 'Decryption'} Tool</h2>
       
       <div className="form-group">
