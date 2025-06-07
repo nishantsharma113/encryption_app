@@ -41,7 +41,10 @@ const EncryptDecrypt: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [secretKey, setSecretKey] = useState('');
-  const [mode, setMode] = useState<'encrypt' | 'decrypt'>('encrypt');
+  const [mode, setMode] = useState<'encrypt' | 'decrypt'>(() => {
+    const savedMode = localStorage.getItem('mode');
+    return savedMode === 'encrypt' || savedMode === 'decrypt' ? savedMode : 'encrypt';
+  });
   const [algorithm, setAlgorithm] = useState<string>(EncryptionType.CBC);
   const [shift, setShift] = useState<number>(3); // For Caesar cipher
   const [isError, setIsError] = useState<boolean>(false);
@@ -52,15 +55,25 @@ const EncryptDecrypt: React.FC = () => {
     const savedKey = localStorage.getItem('encryption_key');
     const savedKeyType2 = localStorage.getItem('encryption_key_type2');
     const savedType = localStorage.getItem('encryption_type');
-
+    const savedMode = localStorage.getItem('mode');
+    console.log('mode', savedMode);
     if (savedKey) {
       setSecretKey(savedKey);
     }
-
     if (savedType && Object.values(EncryptionType).includes(savedType as EncryptionType)) {
       setAlgorithm(savedType);
     }
+    if (savedMode === 'encrypt' || savedMode === 'decrypt') {
+      setMode(savedMode);
+    }
   }, []);
+
+  useEffect(() => {
+    if (mode) {
+      console.log('mode1', mode);
+      localStorage.setItem('mode', mode);
+    }
+  }, [mode]);
 
   // Save key to localStorage when it changes
   useEffect(() => {
@@ -79,6 +92,7 @@ const EncryptDecrypt: React.FC = () => {
       localStorage.setItem('encryption_type', algorithm);
     }
   }, [algorithm]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
