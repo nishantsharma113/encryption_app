@@ -56,7 +56,7 @@ const EncryptDecrypt: React.FC = () => {
     const savedKeyType2 = localStorage.getItem('encryption_key_type2');
     const savedType = localStorage.getItem('encryption_type');
     const savedMode = localStorage.getItem('mode');
-    console.log('mode', savedMode);
+    
     if (savedKey) {
       setSecretKey(savedKey);
     }
@@ -70,7 +70,7 @@ const EncryptDecrypt: React.FC = () => {
 
   useEffect(() => {
     if (mode) {
-      console.log('mode1', mode);
+      
       localStorage.setItem('mode', mode);
     }
   }, [mode]);
